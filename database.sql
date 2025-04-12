@@ -25,3 +25,21 @@ CREATE TABLE book_language (
  language_code CHAR(2) NOT NULL,
  language_name VARCHAR(50) NOT NULL
 );
+
+--create the table for bookS
+CREATE TABLE book (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author_ID INT NOT NULL,
+    publisher_ID INT,
+    language_ID INT,
+    publication_date DATE,
+    genre VARCHAR(100),
+    edition VARCHAR(40),
+    price DECIMAL(10,2) NOT NULL,
+    is_available BOOLEAN NOT NULL DEFAULT TRUE,
+    quantity_in_stock INT DEFAULT 0,
+    page_count INT,
+     FOREIGN KEY (publisher_ID) REFERENCES publisher(publisher_ID),
+	FOREIGN KEY (language_ID) REFERENCES book_language(language_ID)
+);
