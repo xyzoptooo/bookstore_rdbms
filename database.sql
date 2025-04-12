@@ -43,3 +43,32 @@ CREATE TABLE book (
      FOREIGN KEY (publisher_ID) REFERENCES publisher(publisher_ID),
 	FOREIGN KEY (language_ID) REFERENCES book_language(language_ID)
 );
+
+
+--create the table for country
+CREATE TABLE country (
+  country_ID INT AUTO_INCREMENT PRIMARY KEY,
+  country_name VARCHAR(50) NOT NULL
+);
+
+--create the table for address
+CREATE TABLE address (
+    address_ID INT AUTO_INCREMENT PRIMARY KEY,
+    street_number VARCHAR(10),
+    street_name VARCHAR(100) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    state VARCHAR(50),
+    postal_code VARCHAR(20),
+    country_id INT NOT NULL,
+    FOREIGN KEY (country_ID) REFERENCES country(country_ID)
+);
+
+--create the table for customer
+CREATE TABLE customer (
+    customer_ID INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
