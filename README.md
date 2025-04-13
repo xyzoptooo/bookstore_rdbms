@@ -25,7 +25,7 @@ MySQL Server
 Setup Instructions
 
 1.Clone the repository:
-   git clone https://github.com/yourusername/bookstore-database-schema.git
+   git clone https://github.com/xyzoptooo/bookstore_rdbms.git
    cd bookstore-database-schema
 
 2.Import the SQL schema:
