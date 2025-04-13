@@ -51,6 +51,12 @@ CREATE TABLE country (
   country_name VARCHAR(50) NOT NULL
 );
 
+--create the table for address status
+CREATE TABLE address_status (
+    status_ID INT AUTO_INCREMENT PRIMARY KEY,
+    status_value VARCHAR(20) NOT NULL
+);
+
 --create the table for address
 CREATE TABLE address (
     address_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -63,7 +69,7 @@ CREATE TABLE address (
     FOREIGN KEY (country_ID) REFERENCES country(country_ID)
 );
 
---create the table for customer
+--create the table for customer 
 CREATE TABLE customer (
     customer_ID INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -71,4 +77,65 @@ CREATE TABLE customer (
     email VARCHAR(100) UNIQUE NOT NULL,
     phone VARCHAR(20),
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ 
+
+--create the table for customer address
+CREATE TABLE customer_address (
+    customer_ID INT NOT NULL,
+    address_ID INT NOT NULL,
+    status_id INT NOT NULL,
+    PRIMARY KEY (customer_ID, address_ID),
+     FOREIGN KEY (customer_ID) REFERENCES customer(customer_ID),
+     FOREIGN KEY (address_ID) REFERENCES address(address_ID),
+     FOREIGN KEY (status_ID) REFERENCES address_status(status_ID)
+);
+
+
+--create the table for shipping_method
+CREATE TABLE shipping_method (
+    method_ID INT AUTO_INCREMENT PRIMARY KEY,
+    method_name VARCHAR(50) NOT NULL,
+    cost DECIMAL(10,2) NOT NULL
+);
+
+--create the table for order_status
+CREATE TABLE order_status (
+    status_id INT AUTO_INCREMENT PRIMARY KEY,
+    status_value VARCHAR(20) NOT NULL
+);
+
+--create the table for customer_order
+CREATE TABLE cust_order (
+    order_ID INT AUTO_INCREMENT PRIMARY KEY,
+    customer_ID INT NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    address_ID INT NOT NULL,
+    order_total DECIMAL(10,2) NOT NULL,
+    all_orders INT,
+    shipping_method_ID INT,
+     FOREIGN KEY (customer_id) REFERENCES customer(customer_ID),
+     FOREIGN KEY (shipping_method_id) REFERENCES shipping_method(method_ID),
+     FOREIGN KEY (address_id) REFERENCES address(address_ID)
+);
+
+--create the table for order_LINE 
+CREATE TABLE order_line (
+    line_ID INT AUTO_INCREMENT PRIMARY KEY,
+    order_ID INT NOT NULL,
+    book_ID INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    price DECIMAL(10,2) NOT NULL,
+	 FOREIGN KEY (order_id) REFERENCES cust_order(order_id),
+     FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+
+--Create the table for order_history
+CREATE TABLE order_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    status_id INT NOT NULL,
+    status_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     FOREIGN KEY (order_id) REFERENCES cust_order(order_id) ON DELETE CASCADE,
+     FOREIGN KEY (status_id) REFERENCES order_status(status_id)
 );
