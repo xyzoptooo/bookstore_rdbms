@@ -86,4 +86,4 @@ The group leader should create a GitHub repository.
 Deadline: 13/04/2025 11:59 pm EAT
 
 
-Submit the GitHub repo link here
+Submit the GitHub repo link here https://forms.gle/DrKeuqKbeW45x9Gb6
