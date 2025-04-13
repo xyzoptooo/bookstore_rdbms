@@ -40,8 +40,8 @@ CREATE TABLE book (
     is_available BOOLEAN NOT NULL DEFAULT TRUE,
     quantity_in_stock INT DEFAULT 0,
     page_count INT,
-     FOREIGN KEY (publisher_ID) REFERENCES publisher(publisher_ID),
-	FOREIGN KEY (language_ID) REFERENCES book_language(language_ID)
+        FOREIGN KEY (publisher_ID) REFERENCES publisher(publisher_ID),
+        FOREIGN KEY (language_ID) REFERENCES book_language(language_ID)
 );
 
 
@@ -66,7 +66,7 @@ CREATE TABLE address (
     state VARCHAR(50),
     postal_code VARCHAR(20),
     country_id INT NOT NULL,
-    FOREIGN KEY (country_ID) REFERENCES country(country_ID)
+        FOREIGN KEY (country_ID) REFERENCES country(country_ID)
 );
 
 --create the table for customer 
@@ -86,9 +86,9 @@ CREATE TABLE customer_address (
     address_ID INT NOT NULL,
     status_id INT NOT NULL,
     PRIMARY KEY (customer_ID, address_ID),
-     FOREIGN KEY (customer_ID) REFERENCES customer(customer_ID),
-     FOREIGN KEY (address_ID) REFERENCES address(address_ID),
-     FOREIGN KEY (status_ID) REFERENCES address_status(status_ID)
+    	FOREIGN KEY (customer_ID) REFERENCES customer(customer_ID),
+    	FOREIGN KEY (address_ID) REFERENCES address(address_ID),
+    	FOREIGN KEY (status_ID) REFERENCES address_status(status_ID)
 );
 
 
@@ -114,9 +114,9 @@ CREATE TABLE cust_order (
     order_total DECIMAL(10,2) NOT NULL,
     all_orders INT,
     shipping_method_ID INT,
-     FOREIGN KEY (customer_id) REFERENCES customer(customer_ID),
-     FOREIGN KEY (shipping_method_id) REFERENCES shipping_method(method_ID),
-     FOREIGN KEY (address_id) REFERENCES address(address_ID)
+    	FOREIGN KEY (customer_id) REFERENCES customer(customer_ID),
+    	FOREIGN KEY (shipping_method_id) REFERENCES shipping_method(method_ID),
+    	FOREIGN KEY (address_id) REFERENCES address(address_ID)
 );
 
 --create the table for order_LINE 
@@ -126,8 +126,8 @@ CREATE TABLE order_line (
     book_ID INT NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
     price DECIMAL(10,2) NOT NULL,
-	 FOREIGN KEY (order_id) REFERENCES cust_order(order_id),
-     FOREIGN KEY (book_id) REFERENCES book(book_id)
+	FOREIGN KEY (order_id) REFERENCES cust_order(order_id),
+     	FOREIGN KEY (book_id) REFERENCES book(book_id)
 );
 
 --Create the table for order_history
@@ -136,6 +136,6 @@ CREATE TABLE order_history (
     order_id INT NOT NULL,
     status_id INT NOT NULL,
     status_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-     FOREIGN KEY (order_id) REFERENCES cust_order(order_id) ON DELETE CASCADE,
-     FOREIGN KEY (status_id) REFERENCES order_status(status_id)
+    	FOREIGN KEY (order_id) REFERENCES cust_order(order_id) ON DELETE CASCADE,
+    	FOREIGN KEY (status_id) REFERENCES order_status(status_id)
 );
